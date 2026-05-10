@@ -3,8 +3,12 @@ import { journalEntries, ledgerLines, accounts } from '../db/schema';
 import { eq, and, lte, desc, sum, count, sql, asc, inArray } from 'drizzle-orm';
 import { JournalEntryEntity, LedgerLineEntity } from '../types/ledger.types';
 import { TransactionAlreadyReversedError } from '../errors/domain.errors';
+import { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres';
+import { PgTransaction } from 'drizzle-orm/pg-core';
+import { ExtractTablesWithRelations } from 'drizzle-orm';
+import * as schema from '../db/schema';
 
-type Tx = typeof db;
+type Tx = PgTransaction<NodePgQueryResultHKT, typeof schema, ExtractTablesWithRelations<typeof schema>>;
 
 export const LedgerRepository = {
   /**
