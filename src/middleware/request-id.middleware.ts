@@ -1,13 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-// Extend Express Request type safely
-declare module 'express' {
-  interface Request {
-    requestId: string;
-  }
-}
-
 /**
  * Attaches a unique request ID to every incoming request.
  * Uses client-provided `x-request-id` if present, otherwise generates a new UUID.
